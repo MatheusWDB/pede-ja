@@ -1,0 +1,412 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Pede Já",
+    "description": "Cardápio digital"
+  },
+  "host": "pede-ja.onrender.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/cadastro": {
+      "post": {
+        "description": "Registra um novo estabelecimento",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string"
+                },
+                "cnpj": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "senha": {
+                  "type": "string"
+                },
+                "telefone": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "description": "Reliza o login",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "senha": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "idRestaurante": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{idR}/cardapio": {
+      "get": {
+        "description": "Lista todos os pratos do restaurante",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "idPrato": {
+                    "type": "integer"
+                  },
+                  "nome": {
+                    "type": "string"
+                  },
+                  "valor": {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "ingredientes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "imagem": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Adiciona um novo prato ao restaurante",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string"
+                },
+                "valor": {
+                  "type": "number",
+                  "format": "float"
+                },
+                "ingredientes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "imagem": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/{idR}/cardapio/{idPr}": {
+      "put": {
+        "description": "Atualiza o prato selecionado",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "idPr",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string"
+                },
+                "valor": {
+                  "type": "number",
+                  "format": "float"
+                },
+                "ingredientes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "imagem": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deleta o prato selecionado",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "idPr",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          }
+        }
+      }
+    },
+    "/{idR}/pedidos": {
+      "get": {
+        "description": "Lita todos os pedidos do restaurante",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "idPedido": {
+                    "type": "integer"
+                  },
+                  "numeroPedido": {
+                    "type": "integer"
+                  },
+                  "finalizado": {
+                    "type": "string"
+                  },
+                  "mesa": {
+                    "type": "integer"
+                  },
+                  "pratos": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "nome": {
+                          "type": "string"
+                        },
+                        "valor": {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        "quantidade": {
+                          "type": "integer"
+                        },
+                        "observacao": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "valorTotal": {
+                    "type": "number",
+                    "format": "float"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{idR}/pedidos/{idP}": {
+      "put": {
+        "description": "Atualiza o status do pedido selecionado",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "idP",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deleta o pedido selecionado se estiver finalizado",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "idP",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          }
+        }
+      }
+    },
+    "/{idR}/cliente/realizar_pedido": {
+      "post": {
+        "description": "Realiza o pedido",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "nome": {
+                        "type": "string"
+                      },
+                      "mesa": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "idPrato": {
+                        "type": "string"
+                      },
+                      "quantidade": {
+                        "type": "integer"
+                      },
+                      "observacao": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    }
+  }
+}
