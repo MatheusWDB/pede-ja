@@ -2,7 +2,7 @@
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/MatheusWDB/pede-ja/blob/main/LICENSE)
 
 # Sobre o projeto  
-**Pede Já** é um aplicativo de cardápio digital desenvolvido para facilitar a interação entre restaurantes e clientes. Através de um QR Code exclusivo, o cliente acessa o cardápio, informa seus dados e realiza pedidos diretamente pelo celular. O restaurante, por sua vez, pode gerenciar o cardápio e acompanhar os pedidos em tempo real.
+**Pede Já** é um aplicativo de cardápio digital desenvolvido para facilitar a interação entre restaurantes e clientes. Através de um QR Code exclusivo, o cliente acessa o cardápio, informa seus dados e realiza pedidos diretamente pelo celular. O restaurante, por sua vez, pode gerenciar o cardápio e acompanhar os pedidos.
 
 ## Funcionalidades:
 
